@@ -203,11 +203,12 @@ const REVIEW_RESPONSES = {
 };
 
 // ─── Detailed PR responses (for dashboard enrichment) ────────────────────────
-function detailResponse(pr, additions, deletions, changedFiles) {
-  return { ...pr, additions, deletions, changed_files: changedFiles, body: '## Summary\n\nThis PR adds improvements to the codebase.', commits: 4, comments: 2, review_comments: 3 };
+function detailResponse(pr, additions, deletions, changedFiles, body = '## Summary\n\nThis PR adds improvements to the codebase.') {
+  return { ...pr, additions, deletions, changed_files: changedFiles, body, commits: 4, comments: 2, review_comments: 3 };
 }
 const PR_DETAIL_RESPONSES = {
-  'acme-corp/frontend:142': detailResponse(frontendOpenPRs[0], 312, 45, 8),
+  'acme-corp/frontend:142': detailResponse(frontendOpenPRs[0], 312, 45, 8,
+    '## Summary\n\nAdds the analytics widget to the main dashboard. Pulls data from the existing metrics API and renders a sparkline chart using Recharts.\n\n## Changes\n\n- New `AnalyticsWidget` component in `components/dashboard/`\n- Wired up to `/api/metrics` endpoint\n- Added loading skeleton and empty state\n- Unit tests for data transformation helpers\n\n## Testing\n\n```\nnpm run test -- --testPathPattern=AnalyticsWidget\n```\n\n> Closes #138'),
   'acme-corp/frontend:141': detailResponse(frontendOpenPRs[1], 28, 14, 3),
   'acme-corp/frontend:140': detailResponse(frontendOpenPRs[2], 187, 92, 12),
   'acme-corp/frontend:139': detailResponse(frontendOpenPRs[3], 5, 5, 4),
@@ -422,6 +423,39 @@ async function takeScreenshots() {
       await page.waitForTimeout(3000);
       await page.screenshot({ path: `${OUT_DIR}/pr-list-mobile.png`, fullPage: false });
       console.log('✓ pr-list-mobile.png');
+      await ctx.close();
+    }
+
+    // API Limits page
+    {
+      const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, colorScheme: 'dark', deviceScaleFactor: 2 });
+      const page = await ctx.newPage();
+      setupRoutes(page);
+      await page.addInitScript(s => { window.localStorage.setItem('pr-dashboard-settings', JSON.stringify(s)); }, MOCK_SETTINGS);
+      await page.goto(APP_URL, { waitUntil: 'networkidle', timeout: 30000 });
+      await page.click('button:has-text("API Limits")');
+      await page.waitForTimeout(3000);
+      await page.screenshot({ path: `${OUT_DIR}/api-limits.png`, fullPage: false });
+      console.log('✓ api-limits.png');
+      await ctx.close();
+    }
+
+    // PR detail side panel
+    {
+      const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, colorScheme: 'dark', deviceScaleFactor: 2 });
+      const page = await ctx.newPage();
+      setupRoutes(page);
+      await page.addInitScript(s => { window.localStorage.setItem('pr-dashboard-settings', JSON.stringify(s)); }, MOCK_SETTINGS);
+      await page.goto(APP_URL, { waitUntil: 'networkidle', timeout: 30000 });
+      await page.waitForSelector('div[role="button"]', { timeout: 20000 });
+      await page.waitForTimeout(2000);
+      // Click the first PR row (feat: add dashboard analytics widget)
+      await page.locator('div[role="button"]').first().click();
+      // Wait for the detail panel to animate in and the detail fetch to complete
+      await page.waitForSelector('[role="dialog"]', { timeout: 10000 });
+      await page.waitForTimeout(2500);
+      await page.screenshot({ path: `${OUT_DIR}/pr-detail.png`, fullPage: false });
+      console.log('✓ pr-detail.png');
       await ctx.close();
     }
 

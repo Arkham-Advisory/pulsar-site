@@ -20,13 +20,15 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    env:
+      POSTHOG_KEY: ${{ secrets.VITE_POSTHOG_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Inject PostHog key
-        if: ${{ secrets.VITE_POSTHOG_KEY != '' }}
-        run: sed -i "s|__POSTHOG_KEY__|${{ secrets.VITE_POSTHOG_KEY }}|g" index.html
+        if: ${{ env.POSTHOG_KEY != '' }}
+        run: sed -i "s|__POSTHOG_KEY__|$POSTHOG_KEY|g" index.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

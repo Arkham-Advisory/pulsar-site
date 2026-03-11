@@ -937,9 +937,11 @@
     <p class="section-subtitle">A clean, focused interface. Works in dark and light mode, on desktop and mobile.</p>
 
     <div class="screenshots-tabs">
-      <button class="tab-btn active" onclick="showTab('pr-list-dark')">PR List · Dark</button>
-      <button class="tab-btn" onclick="showTab('dashboard')">Dashboard · Dark</button>
-      <button class="tab-btn" onclick="showTab('pr-list-light')">PR List · Light</button>
+      <button class="tab-btn active" onclick="showTab('pr-list-dark')">PR List</button>
+      <button class="tab-btn" onclick="showTab('pr-detail')">PR Detail</button>
+      <button class="tab-btn" onclick="showTab('dashboard')">Dashboard</button>
+      <button class="tab-btn" onclick="showTab('api-limits')">API Limits</button>
+      <button class="tab-btn" onclick="showTab('pr-list-light')">Light Mode</button>
       <button class="tab-btn" onclick="showTab('mobile')">Mobile</button>
     </div>
 
@@ -961,6 +963,23 @@
         <div class="screenshot-caption">PR list with sections: Ready to Merge, Needs Attention, Review Requested, and more</div>
       </div>
 
+      <div class="screenshot-panel" id="panel-pr-detail">
+        <div class="screenshot-frame">
+          <div class="frame-inner">
+            <div class="frame-bar">
+              <div class="frame-dot frame-dot-red"></div>
+              <div class="frame-dot frame-dot-amber"></div>
+              <div class="frame-dot frame-dot-green"></div>
+              <div class="frame-bar-url">pulsar · Pull Requests · Detail</div>
+            </div>
+            <div class="screenshot-img">
+              <img src="assets/screenshots/pr-detail.png" alt="PR detail side panel" loading="lazy" />
+            </div>
+          </div>
+        </div>
+        <div class="screenshot-caption">Click any PR to open a side panel: author, branch, CI status, review state, labels, diff stats, and description</div>
+      </div>
+
       <div class="screenshot-panel" id="panel-dashboard">
         <div class="screenshot-frame">
           <div class="frame-inner">
@@ -976,6 +995,23 @@
           </div>
         </div>
         <div class="screenshot-caption">Analytics dashboard with metric cards, PR velocity chart, cycle time, and review workload</div>
+      </div>
+
+      <div class="screenshot-panel" id="panel-api-limits">
+        <div class="screenshot-frame">
+          <div class="frame-inner">
+            <div class="frame-bar">
+              <div class="frame-dot frame-dot-red"></div>
+              <div class="frame-dot frame-dot-amber"></div>
+              <div class="frame-dot frame-dot-green"></div>
+              <div class="frame-bar-url">pulsar · API Limits</div>
+            </div>
+            <div class="screenshot-img">
+              <img src="assets/screenshots/api-limits.png" alt="API rate limits page" loading="lazy" />
+            </div>
+          </div>
+        </div>
+        <div class="screenshot-caption">See your GitHub API quota at a glance: Core, Search, and GraphQL buckets with reset times and token scopes</div>
       </div>
 
       <div class="screenshot-panel" id="panel-pr-list-light">
