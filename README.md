@@ -2,7 +2,7 @@
 
 Marketing website for **[Pulsar](https://github.com/Arkham-Advisory/pulsar)**, the GitHub PR dashboard for engineering teams.
 
-**Live site**: https://arkham-advisory.github.io/pulsar-website/ *(update once deployed)*
+**Live site**: https://pulsar.arkham-advisory.com
 
 ---
 
@@ -18,7 +18,9 @@ Marketing website for **[Pulsar](https://github.com/Arkham-Advisory/pulsar)**, t
 │       ├── pr-list.png
 │       ├── dashboard.png
 │       ├── pr-list-light.png
-│       └── pr-list-mobile.png
+│       ├── pr-list-mobile.png
+│       ├── pr-detail.png
+│       └── api-limits.png
 ├── scripts/
 │   ├── package.json
 │   └── screenshot.mjs           Playwright script that captures the screenshots
@@ -72,7 +74,7 @@ The script needs to start the Pulsar app's Vite dev server. By default it looks 
 PULSAR_APP_DIR=/path/to/pulsar/app node screenshot.mjs
 ```
 
-This starts the Vite dev server, injects mock data, and captures 4 screenshots:
+This starts the Vite dev server, injects mock data, and captures 6 screenshots:
 
 | File | Viewport | Mode |
 |---|---|---|
@@ -80,6 +82,8 @@ This starts the Vite dev server, injects mock data, and captures 4 screenshots:
 | `dashboard.png` | 1440×900 @2x | Dark (Dashboard tab) |
 | `pr-list-light.png` | 1440×900 @2x | Light |
 | `pr-list-mobile.png` | 390×844 @3x | Dark |
+| `pr-detail.png` | 1440×900 @2x | Dark |
+| `api-limits.png` | 1440×900 @2x | Dark |
 
 Commit the updated PNGs to this repo after re-capturing.
 

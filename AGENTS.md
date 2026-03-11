@@ -5,7 +5,7 @@ Static marketing website for [Pulsar](https://github.com/Arkham-Advisory/pulsar)
 
 This is a **standalone git repository**, separate from the main Pulsar app repo.
 
-**Live URL**: once deployed → `https://arkham-advisory.github.io/pulsar-website/` (or a custom domain)
+**Live URL**: https://pulsar.arkham-advisory.com
 
 ---
 
@@ -23,6 +23,8 @@ This is a **standalone git repository**, separate from the main Pulsar app repo.
       dashboard.png              Dashboard view, dark mode, 1440×900 @2x
       pr-list-light.png          PR list view, light mode, 1440×900 @2x
       pr-list-mobile.png         PR list view, mobile (390×844 @3x)
+      pr-detail.png              PR list + open detail side panel, dark mode, 1440×900 @2x
+      api-limits.png             API Rate Limits page, dark mode, 1440×900 @2x
   scripts/
     package.json                 Dependencies: @playwright/test
     screenshot.mjs               Playwright script — starts the app, captures screenshots
@@ -90,11 +92,13 @@ The script:
 2. Opens Chromium (headless) via Playwright
 3. Injects mock `localStorage` settings (fake PAT, 2 repos: `acme-corp/frontend` and `acme-corp/api-service`)
 4. Routes all `https://api.github.com/**` calls to return realistic mock data
-5. Takes 4 screenshots:
+5. Takes 6 screenshots:
    - `pr-list.png` — dark mode, 1440×900 @2x
    - `dashboard.png` — dark mode, after clicking the "Dashboard" nav tab
    - `pr-list-light.png` — light mode, 1440×900 @2x
    - `pr-list-mobile.png` — dark mode, 390×844 @3x
+   - `pr-detail.png` — PR list with open detail panel, dark mode, 1440×900 @2x
+   - `api-limits.png` — API Rate Limits page, dark mode, 1440×900 @2x
 
 ### Extending mock data
 Edit `MOCK_SETTINGS`, `frontendOpenPRs`, `apiOpenPRs`, `CI_RESPONSES`, and `REVIEW_RESPONSES` in `scripts/screenshot.mjs`.
@@ -150,5 +154,5 @@ cd scripts && node screenshot.mjs
 
 ## Gotchas
 - Screenshots are committed to this repo (`assets/screenshots/*.png`). Re-run `cd scripts && node screenshot.mjs` whenever the app UI changes significantly, then commit the updated PNGs here.
-- All external links point to `https://arkham-advisory.github.io/pulsar/` (the deployed app) and `https://github.com/Arkham-Advisory/pulsar`. Update these if the repo or deployment URL changes.
+- All external links point to `https://app.pulsar.arkham-advisory.com` (the deployed app) and `https://github.com/Arkham-Advisory/pulsar`. Update these if the repo or deployment URL changes.
 - The `<script>` tag's `showTab()` function uses the global `event` object — this works in all modern browsers.
