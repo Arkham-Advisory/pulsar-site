@@ -1,0 +1,11 @@
+{
+  "name": "pulsar-screenshots",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "screenshot": "node screenshot.mjs"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.49.0"
+  }
+}
