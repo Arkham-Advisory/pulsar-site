@@ -203,15 +203,15 @@ const REVIEW_RESPONSES = {
 };
 
 // ─── Detailed PR responses (for dashboard enrichment) ────────────────────────
-function detailResponse(pr, additions, deletions, changedFiles, body = '## Summary\n\nThis PR adds improvements to the codebase.') {
-  return { ...pr, additions, deletions, changed_files: changedFiles, body, commits: 4, comments: 2, review_comments: 3 };
+function detailResponse(pr, additions, deletions, changedFiles, body = '## Summary\n\nThis PR adds improvements to the codebase.', mergeable = true) {
+  return { ...pr, additions, deletions, changed_files: changedFiles, body, commits: 4, comments: 2, review_comments: 3, mergeable };
 }
 const PR_DETAIL_RESPONSES = {
   'acme-corp/frontend:142': detailResponse(frontendOpenPRs[0], 312, 45, 8,
     '## Summary\n\nAdds the analytics widget to the main dashboard. Pulls data from the existing metrics API and renders a sparkline chart using Recharts.\n\n## Changes\n\n- New `AnalyticsWidget` component in `components/dashboard/`\n- Wired up to `/api/metrics` endpoint\n- Added loading skeleton and empty state\n- Unit tests for data transformation helpers\n\n## Testing\n\n```\nnpm run test -- --testPathPattern=AnalyticsWidget\n```\n\n> Closes #138'),
   'acme-corp/frontend:141': detailResponse(frontendOpenPRs[1], 28, 14, 3),
   'acme-corp/frontend:140': detailResponse(frontendOpenPRs[2], 187, 92, 12),
-  'acme-corp/frontend:139': detailResponse(frontendOpenPRs[3], 5, 5, 4),
+  'acme-corp/frontend:139': detailResponse(frontendOpenPRs[3], 5, 5, 4, '## Summary\n\nThis PR adds improvements to the codebase.', false),
   'acme-corp/frontend:138': detailResponse(frontendOpenPRs[4], 420, 12, 6),
   'acme-corp/frontend:137': detailResponse(frontendMergedPRs[0], 203, 18, 7),
   'acme-corp/frontend:136': detailResponse(frontendMergedPRs[1], 15, 8, 2),

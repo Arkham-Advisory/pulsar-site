@@ -841,7 +841,7 @@
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--brand-400)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v12"/><circle cx="6" cy="18" r="3"/><circle cx="6" cy="3" r="3"/><path d="M18 6a3 3 0 0 1 0 6 3 3 0 0 1-3-3c0-.55.15-1.07.42-1.52"/><path d="M6 6h6a3 3 0 0 1 3 3"/></svg>
         </div>
         <div class="feature-title">Smart PR Sections</div>
-        <div class="feature-desc">PRs land in <strong style="color:var(--slate-200)">Ready to Merge</strong>, <strong style="color:var(--slate-200)">Needs Attention</strong>, <strong style="color:var(--slate-200)">Review Requested</strong>, <strong style="color:var(--slate-200)">My PRs</strong>, or <strong style="color:var(--slate-200)">Drafts</strong> based on their current state. No manual sorting needed.</div>
+        <div class="feature-desc">PRs land in <strong style="color:var(--slate-200)">Ready to Merge</strong>, <strong style="color:var(--slate-200)">Needs Attention</strong>, <strong style="color:var(--slate-200)">Review Requested</strong>, <strong style="color:var(--slate-200)">My PRs</strong>, or <strong style="color:var(--slate-200)">Drafts</strong> based on their current state. PRs with merge conflicts are automatically escalated to Needs Attention. No manual sorting needed.</div>
         <!-- Live PR demo widget -->
         <div class="pr-demo" style="margin-top:18px;">
           <div class="pr-demo-header">
@@ -870,6 +870,12 @@
             <div class="pr-author">marcus.t</div>
             <div class="pr-label label-red">CI failed</div>
           </div>
+          <div class="pr-demo-row">
+            <div class="pr-ci-dot" style="background:var(--amber-400)"></div>
+            <div class="pr-title">chore: upgrade Vite and React to latest</div>
+            <div class="pr-author">leo.wang</div>
+            <div class="pr-label" style="background:rgba(251,191,36,0.15);color:var(--amber-400);border-color:rgba(251,191,36,0.3)">Conflict</div>
+          </div>
         </div>
       </div>
 
@@ -877,8 +883,8 @@
         <div class="feature-icon feature-icon-green">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green-400)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         </div>
-        <div class="feature-title">Live CI Status</div>
-        <div class="feature-desc">Each PR shows its build status inline, pulled from GitHub Actions check runs. Green, yellow, red. No more tab switching to figure out if CI passed.</div>
+        <div class="feature-title">Live CI Status &amp; PR Size</div>
+        <div class="feature-desc">Each PR shows its build status inline, pulled from GitHub Actions check runs. Green, yellow, red. A <strong style="color:var(--slate-200)">size badge</strong> — Tiny, Small, Medium, Large, Huge — tells you how big the change is before you even open it.</div>
       </div>
 
       <div class="feature-card">
