@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pulsar: GitHub PR Dashboard</title>
   <meta name="description" content="Pulsar is a free, open-source GitHub PR dashboard that runs entirely in your browser. See CI status, review state, pinned PRs, shareable links, and engineering metrics across all your repos. No server required." />
-  <meta name="keywords" content="GitHub PR dashboard, pull request tracker, code review analytics, GitHub Actions CI status, engineering metrics, team productivity, open source, developer tools, pull request management" />
+  <meta name="keywords" content="GitHub PR dashboard, pull request tracker, code review analytics, GitHub Actions CI status, engineering metrics, team productivity, open source, developer tools, pull request management, Jira integration, issue tracker" />
   <meta name="author" content="Arkham Advisory" />
   <meta name="robots" content="index, follow" />
   <meta property="og:title" content="Pulsar: GitHub PR Dashboard" />
@@ -35,7 +35,7 @@
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "creator": { "@type": "Organization", "name": "Arkham Advisory", "url": "https://github.com/Arkham-Advisory" },
     "softwareVersion": "1.0",
-    "featureList": "PR status, CI status, review tracking, analytics dashboard, shareable links, drag-and-drop sections, pinned PRs, reviewer filter, lifecycle timeline",
+    "featureList": "PR status, CI status, review tracking, analytics dashboard, shareable links, drag-and-drop sections, pinned PRs, reviewer filter, lifecycle timeline, issue tracker auto-linking",
     "screenshot": "https://pulsar.arkham-advisory.com/assets/screenshots/pr-list.png",
     "sameAs": ["https://github.com/Arkham-Advisory/pulsar"]
   }
@@ -1126,6 +1126,15 @@
         <div class="new-feature-title">Contributor Heatmap</div>
         <div class="new-feature-desc">A weekly activity heatmap on the Dashboard shows contribution intensity per team member across the selected time range. Spot who's heads-down and who might need a hand.</div>
         <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('dashboard-heatmap');return true;" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
+      </div>
+
+      <div class="new-feature-card">
+        <div class="tag-new">✦ New</div>
+        <div class="new-feature-title">Issue Tracker Links</div>
+        <div class="new-feature-desc">Configure Jira, GitHub issue references, or any custom tracker with a regex pattern. Pulsar auto-links matching references in PR titles and descriptions — click through to the issue without leaving your dashboard.</div>
+        <div class="new-feature-demo">
+          <span style="color:var(--brand-400);font-size:12px;">PROJ-123 → Jira &nbsp;·&nbsp; #42 → GitHub &nbsp;·&nbsp; LIN-456 → Linear</span>
+        </div>
       </div>
 
     </div>
