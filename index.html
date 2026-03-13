@@ -4,12 +4,42 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pulsar: GitHub PR Dashboard</title>
-  <meta name="description" content="Pulsar is a GitHub PR dashboard that runs in your browser. See CI status, review state, and engineering metrics across all your repos." />
+  <meta name="description" content="Pulsar is a free, open-source GitHub PR dashboard that runs entirely in your browser. See CI status, review state, pinned PRs, shareable links, and engineering metrics across all your repos. No server required." />
+  <meta name="keywords" content="GitHub PR dashboard, pull request tracker, code review analytics, GitHub Actions CI status, engineering metrics, team productivity, open source, developer tools, pull request management" />
+  <meta name="author" content="Arkham Advisory" />
+  <meta name="robots" content="index, follow" />
   <meta property="og:title" content="Pulsar: GitHub PR Dashboard" />
-  <meta property="og:description" content="GitHub PR dashboard with CI status, review tracking and team analytics. Runs entirely in your browser." />
+  <meta property="og:description" content="Free, open-source GitHub PR dashboard with CI status, review tracking, shareable links, and team analytics. Runs entirely in your browser. No backend, no signup." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://pulsar.arkham-advisory.com" />
+  <meta property="og:image" content="https://pulsar.arkham-advisory.com/assets/screenshots/pr-list.png" />
+  <meta property="og:image:width" content="1440" />
+  <meta property="og:image:height" content="900" />
+  <meta property="og:image:alt" content="Pulsar GitHub PR Dashboard showing categorized pull requests with CI status" />
+  <meta property="og:site_name" content="Pulsar" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pulsar: GitHub PR Dashboard" />
+  <meta name="twitter:description" content="Free, open-source GitHub PR dashboard. CI status, review tracking, shareable links, team analytics. All in your browser." />
+  <meta name="twitter:image" content="https://pulsar.arkham-advisory.com/assets/screenshots/pr-list.png" />
   <link rel="canonical" href="https://pulsar.arkham-advisory.com" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Pulsar",
+    "url": "https://app.pulsar.arkham-advisory.com",
+    "description": "Free, open-source GitHub PR dashboard. See CI status, review state, and engineering metrics across all your repos. Runs entirely in your browser.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "creator": { "@type": "Organization", "name": "Arkham Advisory", "url": "https://github.com/Arkham-Advisory" },
+    "softwareVersion": "1.0",
+    "featureList": "PR status, CI status, review tracking, analytics dashboard, shareable links, drag-and-drop sections, pinned PRs, reviewer filter, lifecycle timeline",
+    "screenshot": "https://pulsar.arkham-advisory.com/assets/screenshots/pr-list.png",
+    "sameAs": ["https://github.com/Arkham-Advisory/pulsar"]
+  }
+  </script>
   <link rel="icon" href="assets/favicon.ico" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -454,6 +484,36 @@
       line-height: 1.7;
     }
 
+    /* ── Scroll to top ───────────────────────────────────────────────────────── */
+    #scroll-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 200;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--slate-800);
+      border: 1px solid var(--slate-700);
+      color: var(--slate-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, color 0.15s, background 0.15s;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    }
+    #scroll-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #scroll-top:hover {
+      background: var(--slate-700);
+      color: var(--slate-100);
+    }
+
     /* ── Screenshots showcase ────────────────────────────────────────────────── */
     .screenshots-section { position: relative; overflow: hidden; }
     .screenshots-tabs {
@@ -731,6 +791,67 @@
     .label-amber   { background: rgba(245,158,11,0.15); color: #fbbf24; }
     .label-purple  { background: rgba(168,85,247,0.15); color: #c084fc; }
 
+    /* ── What's New section ─────────────────────────────────────────────────── */
+    .new-features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      margin-top: 48px;
+    }
+    .new-feature-card {
+      padding: 22px 24px;
+      border-radius: 14px;
+      background: var(--slate-900);
+      border: 1px solid var(--slate-800);
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .new-feature-card:hover {
+      border-color: rgba(97, 112, 248, 0.35);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+    }
+    .tag-new {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(97, 112, 248, 0.15);
+      color: var(--brand-400);
+      border: 1px solid rgba(97, 112, 248, 0.25);
+      margin-bottom: 12px;
+    }
+    .new-feature-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 8px;
+    }
+    .new-feature-desc {
+      font-size: 13px;
+      color: var(--slate-400);
+      line-height: 1.65;
+    }
+    .new-feature-demo {
+      margin-top: 14px;
+      background: var(--slate-950);
+      border: 1px solid var(--slate-800);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-family: 'Inter', monospace;
+      font-size: 12px;
+      color: var(--slate-300);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .new-feature-demo .demo-prompt { color: var(--brand-400); }
+
     /* ── Responsive ──────────────────────────────────────────────────────────── */
     @media (max-width: 768px) {
       .features-grid { grid-template-columns: 1fr; }
@@ -752,6 +873,7 @@
     </a>
     <div class="nav-links">
       <a href="#features" class="nav-link">Features</a>
+      <a href="#whats-new" class="nav-link">What's New</a>
       <a href="#screenshots" class="nav-link">Screenshots</a>
       <a href="#how-it-works" class="nav-link">How it works</a>
       <a href="https://github.com/Arkham-Advisory/pulsar" target="_blank" rel="noopener" class="nav-link">GitHub</a>
@@ -884,7 +1006,7 @@
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green-400)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         </div>
         <div class="feature-title">Live CI Status &amp; PR Size</div>
-        <div class="feature-desc">Each PR shows its build status inline, pulled from GitHub Actions check runs. Green, yellow, red. A <strong style="color:var(--slate-200)">size badge</strong> — Tiny, Small, Medium, Large, Huge — tells you how big the change is before you even open it.</div>
+        <div class="feature-desc">Each PR shows its build status inline, pulled from GitHub Actions check runs. Green, yellow, red. A <strong style="color:var(--slate-200)">size badge</strong> (Tiny, Small, Medium, Large, Huge) tells you how big the change is before you even open it.</div>
       </div>
 
       <div class="feature-card">
@@ -943,6 +1065,73 @@
   </div>
 </section>
 
+<!-- ── What's New ───────────────────────────────────────────────────────────── -->
+<section id="whats-new" style="background:linear-gradient(180deg,var(--slate-950) 0%,rgba(15,23,42,0.6) 50%,var(--slate-950) 100%);position:relative;overflow:hidden;">
+  <div class="bg-glow bg-glow-purple" style="width:600px;height:600px;top:-100px;left:-150px;opacity:0.5;position:absolute;"></div>
+  <div class="bg-glow bg-glow-brand" style="width:500px;height:500px;bottom:-100px;right:-100px;opacity:0.4;position:absolute;"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="section-label">Recently Added</div>
+    <h2 class="section-title">What's new in Pulsar</h2>
+    <p class="section-subtitle">New features shipped to make your workflow even faster.</p>
+
+    <div class="new-features-grid">
+
+      <div class="new-feature-card">
+        <div class="tag-new">✦ New</div>
+        <div class="new-feature-title">Shareable Links</div>
+        <div class="new-feature-desc">Share your exact filtered workspace: selected repos, search, reviewers, section order, all in a single URL. The recipient gets a preview modal before anything is applied. Opening without a token shows a built-in PAT prompt.</div>
+        <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('share-link');return true;" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
+      </div>
+
+      <div class="new-feature-card">
+        <div class="tag-new">✦ New</div>
+        <div class="new-feature-title">Drag &amp; Drop Sections</div>
+        <div class="new-feature-desc">Reorder PR sections exactly how you want them. Drag the handle on any section header to rearrange Ready to Merge, Needs Attention, Review Requested, and more. Your order is saved and included in share links.</div>
+        <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('pr-list-dnd');return true;" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
+      </div>
+
+      <div class="new-feature-card">
+        <div class="tag-new">✦ New</div>
+        <div class="new-feature-title">Pinned PRs</div>
+        <div class="new-feature-desc">Bookmark PRs you want to keep on your radar with the pin icon on any row. Pinned PRs are always shown in a dedicated section at the top and survive page refreshes.</div>
+        <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('pr-list-pinned');return true;" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
+      </div>
+
+      <div class="new-feature-card">
+        <div class="tag-new">✦ New</div>
+        <div class="new-feature-title">Quick Checkout</div>
+        <div class="new-feature-desc">Every PR row has a terminal button that copies the exact command to check it out locally. One click and it's ready to paste in your terminal.</div>
+        <div class="new-feature-demo">
+          <span class="demo-prompt">$</span>
+          <span>gh pr checkout https://github.com/acme/frontend/pull/142</span>
+        </div>
+      </div>
+
+      <div class="new-feature-card">
+        <div class="tag-new">✦ New</div>
+        <div class="new-feature-title">Reviewer Filter</div>
+        <div class="new-feature-desc">Focus on PRs that involve specific reviewers. Multi-select from the team members already in your data, useful for code owners, leads, and review rotation tracking. Saveable as a preset.</div>
+        <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('pr-reviewer-filter');return true;" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
+      </div>
+
+      <div class="new-feature-card">
+        <div class="tag-new">✦ New</div>
+        <div class="new-feature-title">PR Lifecycle Timeline</div>
+        <div class="new-feature-desc">The PR detail panel now shows a visual timeline: when it was opened, who reviewed it and when, when it was approved, and when it was merged. All at a glance, without leaving Pulsar.</div>
+        <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('pr-detail-timeline');return true;" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
+      </div>
+
+      <div class="new-feature-card">
+        <div class="tag-new">✦ New</div>
+        <div class="new-feature-title">Contributor Heatmap</div>
+        <div class="new-feature-desc">A weekly activity heatmap on the Dashboard shows contribution intensity per team member across the selected time range. Spot who's heads-down and who might need a hand.</div>
+        <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('dashboard-heatmap');return true;" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ── Screenshots showcase ──────────────────────────────────────────────────── -->
 <section id="screenshots" class="screenshots-section" style="background:linear-gradient(180deg, var(--slate-950) 0%, rgba(15,23,42,0.5) 50%, var(--slate-950) 100%);">
   <div class="bg-glow bg-glow-brand" style="width:800px;height:800px;top:-100px;right:-200px;opacity:0.6;position:absolute;"></div>
@@ -953,8 +1142,14 @@
 
     <div class="screenshots-tabs">
       <button class="tab-btn active" onclick="showTab('pr-list-dark')">PR List</button>
+      <button class="tab-btn" onclick="showTab('pr-list-pinned')">Pinned PRs</button>
       <button class="tab-btn" onclick="showTab('pr-detail')">PR Detail</button>
+      <button class="tab-btn" onclick="showTab('pr-detail-timeline')">Timeline</button>
+      <button class="tab-btn" onclick="showTab('pr-reviewer-filter')">Reviewer Filter</button>
+      <button class="tab-btn" onclick="showTab('share-link')">Share Link</button>
+      <button class="tab-btn" onclick="showTab('pr-list-dnd')">Drag &amp; Drop</button>
       <button class="tab-btn" onclick="showTab('dashboard')">Dashboard</button>
+      <button class="tab-btn" onclick="showTab('dashboard-heatmap')">Heatmap</button>
       <button class="tab-btn" onclick="showTab('api-limits')">API Limits</button>
       <button class="tab-btn" onclick="showTab('pr-list-light')">Light Mode</button>
       <button class="tab-btn" onclick="showTab('mobile')">Mobile</button>
@@ -978,6 +1173,40 @@
         <div class="screenshot-caption">PR list with sections: Ready to Merge, Needs Attention, Review Requested, and more</div>
       </div>
 
+      <div class="screenshot-panel" id="panel-pr-list-pinned">
+        <div class="screenshot-frame">
+          <div class="frame-inner">
+            <div class="frame-bar">
+              <div class="frame-dot frame-dot-red"></div>
+              <div class="frame-dot frame-dot-amber"></div>
+              <div class="frame-dot frame-dot-green"></div>
+              <div class="frame-bar-url">pulsar · Pull Requests · Pinned</div>
+            </div>
+            <div class="screenshot-img">
+              <img src="assets/screenshots/pr-list-pinned.png" alt="PR list with pinned section at top" loading="lazy" />
+            </div>
+          </div>
+        </div>
+        <div class="screenshot-caption">Pinned PRs appear in a dedicated section at the top. Bookmarked on any row via the pin icon, persisted across refreshes</div>
+      </div>
+
+      <div class="screenshot-panel" id="panel-pr-reviewer-filter">
+        <div class="screenshot-frame">
+          <div class="frame-inner">
+            <div class="frame-bar">
+              <div class="frame-dot frame-dot-red"></div>
+              <div class="frame-dot frame-dot-amber"></div>
+              <div class="frame-dot frame-dot-green"></div>
+              <div class="frame-bar-url">pulsar · Pull Requests · Reviewer filter</div>
+            </div>
+            <div class="screenshot-img">
+              <img src="assets/screenshots/pr-reviewer-filter.png" alt="PR list with reviewer filter open" loading="lazy" />
+            </div>
+          </div>
+        </div>
+        <div class="screenshot-caption">Filter PR sections by reviewer. Multi-select from the team members already in your data, saveable as a named preset</div>
+      </div>
+
       <div class="screenshot-panel" id="panel-pr-detail">
         <div class="screenshot-frame">
           <div class="frame-inner">
@@ -993,6 +1222,23 @@
           </div>
         </div>
         <div class="screenshot-caption">Click any PR to open a side panel: author, branch, CI status, review state, labels, diff stats, and description</div>
+      </div>
+
+      <div class="screenshot-panel" id="panel-pr-detail-timeline">
+        <div class="screenshot-frame">
+          <div class="frame-inner">
+            <div class="frame-bar">
+              <div class="frame-dot frame-dot-red"></div>
+              <div class="frame-dot frame-dot-amber"></div>
+              <div class="frame-dot frame-dot-green"></div>
+              <div class="frame-bar-url">pulsar · Pull Requests · Timeline</div>
+            </div>
+            <div class="screenshot-img">
+              <img src="assets/screenshots/pr-detail-timeline.png" alt="PR detail panel showing lifecycle timeline" loading="lazy" />
+            </div>
+          </div>
+        </div>
+        <div class="screenshot-caption">PR detail panel shows a visual lifecycle timeline: opened → first review → approved → merged, with exact timestamps</div>
       </div>
 
       <div class="screenshot-panel" id="panel-dashboard">
@@ -1063,6 +1309,57 @@
           </div>
         </div>
         <div class="screenshot-caption">Fully responsive, works on any screen size</div>
+      </div>
+
+      <div class="screenshot-panel" id="panel-share-link">
+        <div class="screenshot-frame">
+          <div class="frame-inner">
+            <div class="frame-bar">
+              <div class="frame-dot frame-dot-red"></div>
+              <div class="frame-dot frame-dot-amber"></div>
+              <div class="frame-dot frame-dot-green"></div>
+              <div class="frame-bar-url">pulsar &middot; Share Link Preview</div>
+            </div>
+            <div class="screenshot-img">
+              <img src="assets/screenshots/share-link.png" alt="Share link preview modal" loading="lazy" />
+            </div>
+          </div>
+        </div>
+        <div class="screenshot-caption">Share your exact workspace in one URL. Recipients see a preview of repos, filters, and section order before anything is applied</div>
+      </div>
+
+      <div class="screenshot-panel" id="panel-pr-list-dnd">
+        <div class="screenshot-frame">
+          <div class="frame-inner">
+            <div class="frame-bar">
+              <div class="frame-dot frame-dot-red"></div>
+              <div class="frame-dot frame-dot-amber"></div>
+              <div class="frame-dot frame-dot-green"></div>
+              <div class="frame-bar-url">pulsar &middot; Drag &amp; Drop Sections</div>
+            </div>
+            <div class="screenshot-img">
+              <img src="assets/screenshots/pr-list-dnd.png" alt="Drag and drop section reordering" loading="lazy" />
+            </div>
+          </div>
+        </div>
+        <div class="screenshot-caption">Drag the grip handle on any section header to reorder. Your layout is saved and syncs through share links</div>
+      </div>
+
+      <div class="screenshot-panel" id="panel-dashboard-heatmap">
+        <div class="screenshot-frame">
+          <div class="frame-inner">
+            <div class="frame-bar">
+              <div class="frame-dot frame-dot-red"></div>
+              <div class="frame-dot frame-dot-amber"></div>
+              <div class="frame-dot frame-dot-green"></div>
+              <div class="frame-bar-url">pulsar &middot; Contributor Heatmap</div>
+            </div>
+            <div class="screenshot-img">
+              <img src="assets/screenshots/dashboard-heatmap.png" alt="Contributor activity heatmap" loading="lazy" />
+            </div>
+          </div>
+        </div>
+        <div class="screenshot-caption">Weekly contributor heatmap shows activity intensity per team member. Spot who is heads-down and who might need a hand</div>
       </div>
     </div>
   </div>
@@ -1165,14 +1462,26 @@
   </div>
 </footer>
 
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top" aria-label="Back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
 <script>
   // Screenshot tabs
   function showTab(name) {
     document.querySelectorAll('.screenshot-panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('panel-' + name).classList.add('active');
-    event.currentTarget.classList.add('active');
+    const matchingBtn = Array.from(document.querySelectorAll('.tab-btn'))
+      .find(b => (b.getAttribute('onclick') || '').includes("'" + name + "'"));
+    if (matchingBtn) matchingBtn.classList.add('active');
   }
+
+  // Scroll-to-top visibility
+  const scrollTopBtn = document.getElementById('scroll-top');
+  window.addEventListener('scroll', () => {
+    scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
 
   // Smooth nav links
   document.querySelectorAll('a[href^="#"]').forEach(a => {

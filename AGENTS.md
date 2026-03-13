@@ -13,6 +13,8 @@ This is a **standalone git repository**, separate from the main Pulsar app repo.
 ```
 . (repo root)
   index.html                     Single-file landing page (HTML + inline CSS + inline JS)
+  sitemap.xml                    XML sitemap for search engine indexing
+  robots.txt                     robots.txt — allows all + points to sitemap
   README.md                      Human-facing docs
   AGENTS.md                      This file — agent/AI memory
   assets/
@@ -20,10 +22,16 @@ This is a **standalone git repository**, separate from the main Pulsar app repo.
     favicon.ico                  Favicon
     screenshots/                 App screenshots used on the landing page
       pr-list.png                PR list view, dark mode, 1440×900 @2x
-      dashboard.png              Dashboard view, dark mode, 1440×900 @2x
+      pr-list-pinned.png         PR list with Pinned section at top, dark mode, 1440×900 @2x
+      pr-list-dnd.png            PR list with a section being dragged (mid-drag state), dark mode, 1440×900 @2x
       pr-list-light.png          PR list view, light mode, 1440×900 @2x
       pr-list-mobile.png         PR list view, mobile (390×844 @3x)
       pr-detail.png              PR list + open detail side panel, dark mode, 1440×900 @2x
+      pr-detail-timeline.png     PR detail panel showing full lifecycle timeline (merged PR), dark mode, 1440×900 @2x
+      pr-reviewer-filter.png     PR list with reviewer filter dropdown open, dark mode, 1440×900 @2x
+      share-link.png             SharedLinkPreviewModal open over the PR list, dark mode, 1440×900 @2x
+      dashboard.png              Dashboard view, dark mode, 1440×900 @2x
+      dashboard-heatmap.png      Dashboard scrolled to show Contributor Heatmap, dark mode, 1440×900 @2x
       api-limits.png             API Rate Limits page, dark mode, 1440×900 @2x
   scripts/
     package.json                 Dependencies: @playwright/test
@@ -92,12 +100,18 @@ The script:
 2. Opens Chromium (headless) via Playwright
 3. Injects mock `localStorage` settings (fake PAT, 2 repos: `acme-corp/frontend` and `acme-corp/api-service`)
 4. Routes all `https://api.github.com/**` calls to return realistic mock data
-5. Takes 6 screenshots:
+5. Takes 12 screenshots:
    - `pr-list.png` — dark mode, 1440×900 @2x
-   - `dashboard.png` — dark mode, after clicking the "Dashboard" nav tab
+   - `pr-list-pinned.png` — dark mode, Pinned section at top
+   - `pr-list-dnd.png` — dark mode, section mid-drag
    - `pr-list-light.png` — light mode, 1440×900 @2x
    - `pr-list-mobile.png` — dark mode, 390×844 @3x
    - `pr-detail.png` — PR list with open detail panel, dark mode, 1440×900 @2x
+   - `pr-detail-timeline.png` — PR detail panel with full lifecycle timeline (merged PR)
+   - `pr-reviewer-filter.png` — reviewer dropdown open, dark mode
+   - `share-link.png` — SharedLinkPreviewModal overlay, dark mode
+   - `dashboard.png` — dark mode, after clicking "Dashboard" nav tab
+   - `dashboard-heatmap.png` — dashboard scrolled to Contributor Heatmap
    - `api-limits.png` — API Rate Limits page, dark mode, 1440×900 @2x
 
 ### Extending mock data
@@ -115,6 +129,7 @@ The entire website is in `index.html` (repo root). Key sections in order:
 | `.hero` | `<!-- ── Hero` | Headline, subheadline, CTA buttons, hero screenshot |
 | `.logos-bar` | after hero | "Works with any GitHub repository" strip |
 | `#features` | `<section id="features">` | 6 feature cards + stats row |
+| `#whats-new` | `<section id="whats-new">` | 7 recently-added feature cards (share links, drag & drop, pin, checkout, reviewer filter, timeline, heatmap) |
 | `#screenshots` | `<section id="screenshots">` | Tab-based screenshot showcase |
 | `#how-it-works` | `<section id="how-it-works">` | 3 steps + privacy highlight |
 | `.cta-section` | near bottom | Final CTA with buttons |
@@ -152,7 +167,10 @@ cd scripts && node screenshot.mjs
 
 ---
 
+## Writing style
+- **No em dashes (`—`) anywhere in the page content.** Use a comma, colon, or rewrite the sentence instead. This applies to all copy: meta tags, feature descriptions, captions, and any other user-visible text.
+
 ## Gotchas
 - Screenshots are committed to this repo (`assets/screenshots/*.png`). Re-run `cd scripts && node screenshot.mjs` whenever the app UI changes significantly, then commit the updated PNGs here.
 - All external links point to `https://app.pulsar.arkham-advisory.com` (the deployed app) and `https://github.com/Arkham-Advisory/pulsar`. Update these if the repo or deployment URL changes.
-- The `<script>` tag's `showTab()` function uses the global `event` object — this works in all modern browsers.
+- The `<script>` tag's `showTab()` function finds the matching tab button by its `onclick` attribute, so it works both from tab buttons and from inline `<a>` links.

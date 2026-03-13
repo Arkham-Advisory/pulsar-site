@@ -200,6 +200,11 @@ const REVIEW_RESPONSES = {
   'acme-corp/api-service:87': [],
   'acme-corp/api-service:86': [],
   'acme-corp/api-service:85': [],
+  // Merged PR — full lifecycle review chain
+  'acme-corp/api-service:84': [
+    { id: 6, user: user('sarah.kim'),  state: 'CHANGES_REQUESTED', submitted_at: d(6) },
+    { id: 7, user: user('sarah.kim'),  state: 'APPROVED',           submitted_at: d(4.5) },
+  ],
 };
 
 // ─── Detailed PR responses (for dashboard enrichment) ────────────────────────
@@ -253,6 +258,8 @@ const MOCK_SETTINGS = {
     analyticsConsent: false,
     hideBotPRs: false,
     filterPresets: [],
+    pinnedPRs: ['acme-corp/frontend#142', 'acme-corp/api-service#89'],
+    sectionOrder: ['ready-to-merge', 'needs-attention', 'review-requested', 'my-prs', 'all-prs', 'drafts'],
   },
   version: 0,
 };
@@ -456,6 +463,150 @@ async function takeScreenshots() {
       await page.waitForTimeout(2500);
       await page.screenshot({ path: `${OUT_DIR}/pr-detail.png`, fullPage: false });
       console.log('✓ pr-detail.png');
+      await ctx.close();
+    }
+
+    // PR list — Pinned section at top
+    {
+      const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, colorScheme: 'dark', deviceScaleFactor: 2 });
+      const page = await ctx.newPage();
+      setupRoutes(page);
+      await page.addInitScript(s => { window.localStorage.setItem('pr-dashboard-settings', JSON.stringify(s)); }, MOCK_SETTINGS);
+      await page.goto(APP_URL, { waitUntil: 'networkidle', timeout: 30000 });
+      await page.waitForSelector('div[role="button"]', { timeout: 20000 });
+      await page.waitForTimeout(2500);
+      await page.screenshot({ path: `${OUT_DIR}/pr-list-pinned.png`, fullPage: false });
+      console.log('✓ pr-list-pinned.png');
+      await ctx.close();
+    }
+
+    // PR detail — full lifecycle timeline (merged PR)
+    {
+      const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, colorScheme: 'dark', deviceScaleFactor: 2 });
+      const page = await ctx.newPage();
+      setupRoutes(page);
+      // Use settings without pinnedPRs so the open PR list doesn't interfere
+      const timelineSettings = { ...MOCK_SETTINGS, state: { ...MOCK_SETTINGS.state, pinnedPRs: [] } };
+      await page.addInitScript(s => { window.localStorage.setItem('pr-dashboard-settings', JSON.stringify(s)); }, timelineSettings);
+      await page.goto(APP_URL, { waitUntil: 'networkidle', timeout: 30000 });
+      await page.waitForSelector('div[role="button"]', { timeout: 20000 });
+      await page.waitForTimeout(1000);
+      // Switch to merged tab
+      await page.evaluate(() => {
+        const btns = Array.from(document.querySelectorAll('button'));
+        const mergedBtn = btns.find(b => b.textContent?.trim() === 'merged');
+        if (mergedBtn) mergedBtn.click();
+      });
+      // Wait until the merged PR list is visible (api-service#84 is most recent)
+      await page.waitForFunction(
+        () => document.body.innerText.includes('Recently Merged'),
+        { timeout: 10000 }
+      );
+      await page.waitForTimeout(1000);
+      // Click the first merged PR row (api-service#84 — JWT refresh token rotation, most recently merged)
+      await page.locator('div[role="button"]').first().click();
+      await page.waitForSelector('[role="dialog"]', { timeout: 10000 });
+      await page.waitForTimeout(3000);
+      await page.screenshot({ path: `${OUT_DIR}/pr-detail-timeline.png`, fullPage: false });
+      console.log('✓ pr-detail-timeline.png');
+      await ctx.close();
+    }
+
+    // PR list — reviewer filter open
+    {
+      const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, colorScheme: 'dark', deviceScaleFactor: 2 });
+      const page = await ctx.newPage();
+      setupRoutes(page);
+      await page.addInitScript(s => { window.localStorage.setItem('pr-dashboard-settings', JSON.stringify(s)); }, MOCK_SETTINGS);
+      // Inject selectedReviewers via URL hash (silent restore, no share:true)
+      const reviewerHash = Buffer.from(JSON.stringify({ selectedReviewers: ['alexchen'] })).toString('base64');
+      await page.goto(`${APP_URL}#filter=${reviewerHash}`, { waitUntil: 'networkidle', timeout: 30000 });
+      await page.waitForSelector('[data-section-id]', { timeout: 20000 }).catch(() => page.waitForTimeout(4000));
+      await page.waitForTimeout(2000);
+      // Open the reviewer dropdown to make it visible in the screenshot
+      await page.locator('button:has-text("alexchen")').first().click();
+      await page.waitForTimeout(800);
+      await page.screenshot({ path: `${OUT_DIR}/pr-reviewer-filter.png`, fullPage: false });
+      console.log('✓ pr-reviewer-filter.png');
+      await ctx.close();
+    }
+
+    // Share link preview modal
+    {
+      const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, colorScheme: 'dark', deviceScaleFactor: 2 });
+      const page = await ctx.newPage();
+      setupRoutes(page);
+      await page.addInitScript(s => { window.localStorage.setItem('pr-dashboard-settings', JSON.stringify(s)); }, MOCK_SETTINGS);
+      // Construct a share link payload — share:true triggers SharedLinkPreviewModal
+      const sharePayload = {
+        share: true,
+        repoFilters: [
+          { id: 'f1', type: 'repo', owner: 'acme-corp', repo: 'frontend' },
+          { id: 'f2', type: 'repo', owner: 'acme-corp', repo: 'api-service' },
+        ],
+        selectedRepos: ['acme-corp/frontend', 'acme-corp/api-service'],
+        hideBotPRs: false,
+        search: '',
+        stateFilter: 'open',
+        selectedReviewers: ['alexchen'],
+        sectionOrder: ['needs-attention', 'ready-to-merge', 'review-requested', 'my-prs', 'all-prs', 'drafts'],
+      };
+      const shareHash = Buffer.from(JSON.stringify(sharePayload)).toString('base64');
+      await page.goto(`${APP_URL}#filter=${shareHash}`, { waitUntil: 'networkidle', timeout: 30000 });
+      // SharedLinkPreviewModal uses `fixed inset-0 z-50` — wait for the backdrop
+      await page.waitForSelector('.backdrop-blur-sm', { timeout: 15000 });
+      await page.waitForTimeout(1500);
+      await page.screenshot({ path: `${OUT_DIR}/share-link.png`, fullPage: false });
+      console.log('✓ share-link.png');
+      await ctx.close();
+    }
+
+    // Contributor heatmap (dashboard, scrolled to bottom — heatmap is the last chart)
+    {
+      const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, colorScheme: 'dark', deviceScaleFactor: 2 });
+      const page = await ctx.newPage();
+      setupRoutes(page);
+      await page.addInitScript(s => { window.localStorage.setItem('pr-dashboard-settings', JSON.stringify(s)); }, MOCK_SETTINGS);
+      await page.goto(APP_URL, { waitUntil: 'networkidle', timeout: 30000 });
+      await page.click('button:has-text("Dashboard")');
+      await page.waitForTimeout(4000);
+      // Heatmap is the last element — scroll the dashboard container all the way to the bottom
+      await page.evaluate(() => {
+        const scrollable = document.querySelector('.flex-1.overflow-y-auto') ?? document.documentElement;
+        scrollable.scrollTop = scrollable.scrollHeight;
+      });
+      await page.waitForTimeout(800);
+      await page.screenshot({ path: `${OUT_DIR}/dashboard-heatmap.png`, fullPage: false });
+      console.log('✓ dashboard-heatmap.png');
+      await ctx.close();
+    }
+
+    // PR list — drag and drop (section header mid-drag)
+    {
+      const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, colorScheme: 'dark', deviceScaleFactor: 2 });
+      const page = await ctx.newPage();
+      setupRoutes(page);
+      await page.addInitScript(s => { window.localStorage.setItem('pr-dashboard-settings', JSON.stringify(s)); }, MOCK_SETTINGS);
+      await page.goto(APP_URL, { waitUntil: 'networkidle', timeout: 30000 });
+      await page.waitForSelector('div[role="button"]', { timeout: 20000 });
+      await page.waitForTimeout(2500);
+      // Find the grip handle of the first section (cursor-grab button)
+      const gripHandle = page.locator('button.cursor-grab').first();
+      const box = await gripHandle.boundingBox();
+      if (box) {
+        // Initiate drag: press, hold, move down ~120px to simulate dragging a section
+        await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+        await page.mouse.down();
+        await page.waitForTimeout(200);
+        await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2 + 60, { steps: 10 });
+        await page.waitForTimeout(400);
+        await page.screenshot({ path: `${OUT_DIR}/pr-list-dnd.png`, fullPage: false });
+        await page.mouse.up();
+      } else {
+        // Grip handle not found — fall back to plain section screenshot
+        await page.screenshot({ path: `${OUT_DIR}/pr-list-dnd.png`, fullPage: false });
+      }
+      console.log('✓ pr-list-dnd.png');
       await ctx.close();
     }
 
