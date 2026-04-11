@@ -867,23 +867,23 @@
 <!-- ── Navigation ──────────────────────────────────────────────────────────── -->
 <nav>
   <div class="container nav-inner">
-    <a href="#" class="nav-logo">
+    <a href="#" class="nav-logo" data-track-nav="top">
       <img src="assets/favicon.svg" alt="Pulsar logo" />
       Pulsar
     </a>
     <div class="nav-links">
-      <a href="#features" class="nav-link">Features</a>
-      <a href="#whats-new" class="nav-link">What's New</a>
-      <a href="#screenshots" class="nav-link">Screenshots</a>
-      <a href="#how-it-works" class="nav-link">How it works</a>
-      <a href="https://github.com/Arkham-Advisory/pulsar" target="_blank" rel="noopener" class="nav-link">GitHub</a>
-      <a href="https://app.pulsar.arkham-advisory.com" target="_blank" rel="noopener" class="nav-cta">Open App</a>
+      <a href="#features" class="nav-link" data-track-nav="features">Features</a>
+      <a href="#whats-new" class="nav-link" data-track-nav="whats-new">What's New</a>
+      <a href="#screenshots" class="nav-link" data-track-nav="screenshots">Screenshots</a>
+      <a href="#how-it-works" class="nav-link" data-track-nav="how-it-works">How it works</a>
+      <a href="https://github.com/Arkham-Advisory/pulsar" target="_blank" rel="noopener" class="nav-link" data-track-cta="nav_github" data-track-external="github_repo">GitHub</a>
+      <a href="https://app.pulsar.arkham-advisory.com" target="_blank" rel="noopener" class="nav-cta" data-track-cta="nav_open_app" data-track-external="open_app">Open App</a>
     </div>
   </div>
 </nav>
 
 <!-- ── Hero ─────────────────────────────────────────────────────────────────── -->
-<section class="hero">
+<section class="hero" id="hero" data-track-section="hero">
   <!-- Background glows -->
   <div class="bg-glow bg-glow-brand" style="width:700px;height:700px;top:-200px;left:50%;transform:translateX(-50%);"></div>
   <div class="bg-glow bg-glow-purple" style="width:500px;height:500px;top:100px;left:-10%;"></div>
@@ -903,11 +903,11 @@
       See every open PR across all your repos in one place. CI status, review state, and what's actually blocking things. At a glance.
     </p>
     <div class="hero-actions">
-      <a href="https://app.pulsar.arkham-advisory.com" target="_blank" rel="noopener" class="btn btn-primary">
+      <a href="https://app.pulsar.arkham-advisory.com" target="_blank" rel="noopener" class="btn btn-primary" data-track-cta="hero_open_app" data-track-external="open_app">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         Open the app
       </a>
-      <a href="https://github.com/Arkham-Advisory/pulsar" target="_blank" rel="noopener" class="btn btn-secondary">
+      <a href="https://github.com/Arkham-Advisory/pulsar" target="_blank" rel="noopener" class="btn btn-secondary" data-track-cta="hero_view_github" data-track-external="github_repo">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.004 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.26 2.88.13 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
         View on GitHub
       </a>
@@ -950,7 +950,7 @@
 </div>
 
 <!-- ── Features ──────────────────────────────────────────────────────────────── -->
-<section id="features">
+<section id="features" data-track-section="features">
   <div class="container">
     <div class="section-label">Features</div>
     <h2 class="section-title">Less time figuring out what to work on</h2>
@@ -1066,7 +1066,7 @@
 </section>
 
 <!-- ── What's New ───────────────────────────────────────────────────────────── -->
-<section id="whats-new" style="background:linear-gradient(180deg,var(--slate-950) 0%,rgba(15,23,42,0.6) 50%,var(--slate-950) 100%);position:relative;overflow:hidden;">
+<section id="whats-new" data-track-section="whats-new" style="background:linear-gradient(180deg,var(--slate-950) 0%,rgba(15,23,42,0.6) 50%,var(--slate-950) 100%);position:relative;overflow:hidden;">
   <div class="bg-glow bg-glow-purple" style="width:600px;height:600px;top:-100px;left:-150px;opacity:0.5;position:absolute;"></div>
   <div class="bg-glow bg-glow-brand" style="width:500px;height:500px;bottom:-100px;right:-100px;opacity:0.4;position:absolute;"></div>
   <div class="container" style="position:relative;z-index:1;">
@@ -1080,21 +1080,21 @@
         <div class="tag-new">✦ New</div>
         <div class="new-feature-title">Shareable Links</div>
         <div class="new-feature-desc">Share your exact filtered workspace: selected repos, search, reviewers, section order, all in a single URL. The recipient gets a preview modal before anything is applied. Opening without a token shows a built-in PAT prompt.</div>
-        <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('share-link');return true;" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
+        <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('share-link');return true;" data-track-nav="screenshots" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
       </div>
 
       <div class="new-feature-card">
         <div class="tag-new">✦ New</div>
         <div class="new-feature-title">Drag &amp; Drop Sections</div>
         <div class="new-feature-desc">Reorder PR sections exactly how you want them. Drag the handle on any section header to rearrange Ready to Merge, Needs Attention, Review Requested, and more. Your order is saved and included in share links.</div>
-        <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('pr-list-dnd');return true;" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
+        <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('pr-list-dnd');return true;" data-track-nav="screenshots" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
       </div>
 
       <div class="new-feature-card">
         <div class="tag-new">✦ New</div>
         <div class="new-feature-title">Pinned PRs</div>
         <div class="new-feature-desc">Bookmark PRs you want to keep on your radar with the pin icon on any row. Pinned PRs are always shown in a dedicated section at the top and survive page refreshes.</div>
-        <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('pr-list-pinned');return true;" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
+        <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('pr-list-pinned');return true;" data-track-nav="screenshots" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
       </div>
 
       <div class="new-feature-card">
@@ -1111,21 +1111,21 @@
         <div class="tag-new">✦ New</div>
         <div class="new-feature-title">Reviewer Filter</div>
         <div class="new-feature-desc">Focus on PRs that involve specific reviewers. Multi-select from the team members already in your data, useful for code owners, leads, and review rotation tracking. Saveable as a preset.</div>
-        <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('pr-reviewer-filter');return true;" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
+        <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('pr-reviewer-filter');return true;" data-track-nav="screenshots" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
       </div>
 
       <div class="new-feature-card">
         <div class="tag-new">✦ New</div>
         <div class="new-feature-title">PR Lifecycle Timeline</div>
         <div class="new-feature-desc">The PR detail panel now shows a visual timeline: when it was opened, who reviewed it and when, when it was approved, and when it was merged. All at a glance, without leaving Pulsar.</div>
-        <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('pr-detail-timeline');return true;" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
+        <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('pr-detail-timeline');return true;" data-track-nav="screenshots" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
       </div>
 
       <div class="new-feature-card">
         <div class="tag-new">✦ New</div>
         <div class="new-feature-title">Contributor Heatmap</div>
         <div class="new-feature-desc">A weekly activity heatmap on the Dashboard shows contribution intensity per team member across the selected time range. Spot who's heads-down and who might need a hand.</div>
-        <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('dashboard-heatmap');return true;" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
+        <div class="new-feature-demo"><a href="#screenshots" onclick="showTab('dashboard-heatmap');return true;" data-track-nav="screenshots" style="color:var(--brand-400);text-decoration:none;font-size:12px;">→ See screenshot</a></div>
       </div>
 
       <div class="new-feature-card">
@@ -1142,7 +1142,7 @@
 </section>
 
 <!-- ── Screenshots showcase ──────────────────────────────────────────────────── -->
-<section id="screenshots" class="screenshots-section" style="background:linear-gradient(180deg, var(--slate-950) 0%, rgba(15,23,42,0.5) 50%, var(--slate-950) 100%);">
+<section id="screenshots" class="screenshots-section" data-track-section="screenshots" style="background:linear-gradient(180deg, var(--slate-950) 0%, rgba(15,23,42,0.5) 50%, var(--slate-950) 100%);">
   <div class="bg-glow bg-glow-brand" style="width:800px;height:800px;top:-100px;right:-200px;opacity:0.6;position:absolute;"></div>
   <div class="container" style="position:relative;z-index:1;">
     <div class="section-label">Screenshots</div>
@@ -1150,18 +1150,18 @@
     <p class="section-subtitle">A clean, focused interface. Works in dark and light mode, on desktop and mobile.</p>
 
     <div class="screenshots-tabs">
-      <button class="tab-btn active" onclick="showTab('pr-list-dark')">PR List</button>
-      <button class="tab-btn" onclick="showTab('pr-list-pinned')">Pinned PRs</button>
-      <button class="tab-btn" onclick="showTab('pr-detail')">PR Detail</button>
-      <button class="tab-btn" onclick="showTab('pr-detail-timeline')">Timeline</button>
-      <button class="tab-btn" onclick="showTab('pr-reviewer-filter')">Reviewer Filter</button>
-      <button class="tab-btn" onclick="showTab('share-link')">Share Link</button>
-      <button class="tab-btn" onclick="showTab('pr-list-dnd')">Drag &amp; Drop</button>
-      <button class="tab-btn" onclick="showTab('dashboard')">Dashboard</button>
-      <button class="tab-btn" onclick="showTab('dashboard-heatmap')">Heatmap</button>
-      <button class="tab-btn" onclick="showTab('api-limits')">API Limits</button>
-      <button class="tab-btn" onclick="showTab('pr-list-light')">Light Mode</button>
-      <button class="tab-btn" onclick="showTab('mobile')">Mobile</button>
+      <button class="tab-btn active" onclick="showTab('pr-list-dark')" data-screenshot-tab="pr-list-dark">PR List</button>
+      <button class="tab-btn" onclick="showTab('pr-list-pinned')" data-screenshot-tab="pr-list-pinned">Pinned PRs</button>
+      <button class="tab-btn" onclick="showTab('pr-detail')" data-screenshot-tab="pr-detail">PR Detail</button>
+      <button class="tab-btn" onclick="showTab('pr-detail-timeline')" data-screenshot-tab="pr-detail-timeline">Timeline</button>
+      <button class="tab-btn" onclick="showTab('pr-reviewer-filter')" data-screenshot-tab="pr-reviewer-filter">Reviewer Filter</button>
+      <button class="tab-btn" onclick="showTab('share-link')" data-screenshot-tab="share-link">Share Link</button>
+      <button class="tab-btn" onclick="showTab('pr-list-dnd')" data-screenshot-tab="pr-list-dnd">Drag &amp; Drop</button>
+      <button class="tab-btn" onclick="showTab('dashboard')" data-screenshot-tab="dashboard">Dashboard</button>
+      <button class="tab-btn" onclick="showTab('dashboard-heatmap')" data-screenshot-tab="dashboard-heatmap">Heatmap</button>
+      <button class="tab-btn" onclick="showTab('api-limits')" data-screenshot-tab="api-limits">API Limits</button>
+      <button class="tab-btn" onclick="showTab('pr-list-light')" data-screenshot-tab="pr-list-light">Light Mode</button>
+      <button class="tab-btn" onclick="showTab('mobile')" data-screenshot-tab="mobile">Mobile</button>
     </div>
 
     <div class="screenshots-display">
@@ -1375,7 +1375,7 @@
 </section>
 
 <!-- ── How it works ──────────────────────────────────────────────────────────── -->
-<section id="how-it-works">
+<section id="how-it-works" data-track-section="how-it-works">
   <div class="container">
     <div class="section-label">How it works</div>
     <h2 class="section-title">Up and running in 60 seconds</h2>
@@ -1400,7 +1400,7 @@
     </div>
 
     <!-- Privacy highlight -->
-    <div class="privacy-highlight" style="margin-top:60px;">
+    <div class="privacy-highlight" data-track-section="privacy" style="margin-top:60px;">
       <div>
         <div style="font-size:13px;font-weight:600;color:var(--brand-400);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Privacy first</div>
         <h3 style="font-size:22px;font-weight:800;color:white;margin-bottom:12px;">Your data never leaves your browser</h3>
@@ -1432,7 +1432,7 @@
 </section>
 
 <!-- ── CTA ────────────────────────────────────────────────────────────────────── -->
-<section class="cta-section">
+<section class="cta-section" data-track-section="cta">
   <div class="bg-glow bg-glow-brand" style="width:600px;height:600px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
   <div class="container cta-inner">
     <div class="badge badge-brand" style="margin-bottom:24px;">
@@ -1441,11 +1441,11 @@
     <h2 class="cta-title">Give it a try</h2>
     <p class="cta-subtitle">No account required. Open the app, paste your GitHub token, and you're in.</p>
     <div class="cta-actions">
-      <a href="https://app.pulsar.arkham-advisory.com" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:16px;padding:14px 28px;">
+      <a href="https://app.pulsar.arkham-advisory.com" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:16px;padding:14px 28px;" data-track-cta="cta_open_app" data-track-external="open_app">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         Open Pulsar for free
       </a>
-      <a href="https://github.com/Arkham-Advisory/pulsar" target="_blank" rel="noopener" class="btn btn-secondary" style="font-size:16px;padding:14px 28px;">
+      <a href="https://github.com/Arkham-Advisory/pulsar" target="_blank" rel="noopener" class="btn btn-secondary" style="font-size:16px;padding:14px 28px;" data-track-cta="cta_star_github" data-track-external="github_repo">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.004 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.26 2.88.13 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
         Star on GitHub
       </a>
@@ -1461,9 +1461,9 @@
       Pulsar
     </div>
     <div class="footer-links">
-      <a href="https://github.com/Arkham-Advisory/pulsar" target="_blank" rel="noopener" class="footer-link">GitHub</a>
-      <a href="https://github.com/Arkham-Advisory/pulsar/issues" target="_blank" rel="noopener" class="footer-link">Issues</a>
-      <a href="https://app.pulsar.arkham-advisory.com" target="_blank" rel="noopener" class="footer-link">Open App</a>
+      <a href="https://github.com/Arkham-Advisory/pulsar" target="_blank" rel="noopener" class="footer-link" data-track-cta="footer_github" data-track-external="github_repo">GitHub</a>
+      <a href="https://github.com/Arkham-Advisory/pulsar/issues" target="_blank" rel="noopener" class="footer-link" data-track-cta="footer_issues" data-track-external="github_issues">Issues</a>
+      <a href="https://app.pulsar.arkham-advisory.com" target="_blank" rel="noopener" class="footer-link" data-track-cta="footer_open_app" data-track-external="open_app">Open App</a>
     </div>
     <div class="footer-copy">
       Built with ❤ by <a href="https://github.com/Arkham-Advisory" style="color:var(--slate-400);">Arkham Advisory</a>
@@ -1471,11 +1471,16 @@
   </div>
 </footer>
 
-<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top" aria-label="Back to top">
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top" aria-label="Back to top" data-track-scroll-top="true">
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
 </button>
 
 <script>
+  function track(event, properties) {
+    if (!window.posthog || typeof window.posthog.capture !== 'function') return;
+    window.posthog.capture(event, properties || {});
+  }
+
   // Screenshot tabs
   function showTab(name) {
     document.querySelectorAll('.screenshot-panel').forEach(p => p.classList.remove('active'));
@@ -1484,6 +1489,7 @@
     const matchingBtn = Array.from(document.querySelectorAll('.tab-btn'))
       .find(b => (b.getAttribute('onclick') || '').includes("'" + name + "'"));
     if (matchingBtn) matchingBtn.classList.add('active');
+    track('screenshot_tab_selected', { tab: name });
   }
 
   // Scroll-to-top visibility
@@ -1492,19 +1498,75 @@
     scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
   }, { passive: true });
 
+  scrollTopBtn.addEventListener('click', () => {
+    track('scroll_top_clicked');
+  });
+
   // Smooth nav links
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
+      const targetSelector = a.getAttribute('href');
+      if (!targetSelector || targetSelector === '#') {
+        e.preventDefault();
+        track('anchor_nav_clicked', { target: a.dataset.trackNav || 'top' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      const target = document.querySelector(targetSelector);
       if (target) {
         e.preventDefault();
+        track('anchor_nav_clicked', {
+          target: a.dataset.trackNav || target.id || targetSelector.replace('#', '') || 'top',
+        });
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
   });
+
+  document.querySelectorAll('[data-track-cta]').forEach(link => {
+    link.addEventListener('click', () => {
+      track('cta_clicked', { cta: link.dataset.trackCta });
+    });
+  });
+
+  document.querySelectorAll('[data-track-external]').forEach(link => {
+    link.addEventListener('click', () => {
+      track('external_link_clicked', { target: link.dataset.trackExternal });
+    });
+  });
+
+  const seenSections = new Set();
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const section = entry.target.getAttribute('data-track-section');
+      if (!section || seenSections.has(section)) return;
+      seenSections.add(section);
+      track('section_viewed', { section: section });
+      sectionObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.4 });
+
+  document.querySelectorAll('[data-track-section]').forEach(section => {
+    sectionObserver.observe(section);
+  });
+
+  const seenScrollDepths = new Set();
+  const scrollDepthThresholds = [25, 50, 75, 100];
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    const maxScroll = doc.scrollHeight - window.innerHeight;
+    if (maxScroll <= 0) return;
+    const depth = Math.min(100, Math.round((window.scrollY / maxScroll) * 100));
+    scrollDepthThresholds.forEach(threshold => {
+      if (depth < threshold || seenScrollDepths.has(threshold)) return;
+      seenScrollDepths.add(threshold);
+      track('scroll_depth_reached', { depth_percent: threshold });
+    });
+  }, { passive: true });
 </script>
 
-<!-- PostHog analytics (opt-in, injected at deploy time) -->
+<!-- PostHog analytics (anonymous, injected at deploy time) -->
 <script>
   (function() {
     var key = '__POSTHOG_KEY__';
@@ -1516,7 +1578,7 @@
       person_profiles: 'identified_only',
       capture_pageview: true,
       capture_pageleave: true,
-      autocapture: false,
+      autocapture: true,
       disable_session_recording: true,
     });
   })();
